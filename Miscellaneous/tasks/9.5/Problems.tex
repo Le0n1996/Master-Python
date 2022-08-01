@@ -1,0 +1,221 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage[a4paper, outer=1.5cm, inner=1.5cm, top=1cm, bottom=1cm]{geometry}
+\usepackage{graphicx}
+\usepackage{skull}
+\usepackage{wasysym}
+\usepackage{float}
+\graphicspath{{.images/}}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+\usepackage[firstpage]{draftwatermark}
+\SetWatermarkText{
+    $\qquad\qquad\qquad\qquad\qquad$\parbox{7cm}{\begin{center}
+    \includegraphics[width = 0.08\textwidth]{lion-logo.png}\bigskip\\~\bigskip\\~\vspace{-24mm}\\~\end{center}}
+}
+\SetWatermarkAngle{0}
+\SetWatermarkScale{1.5}
+\usepackage{etoolbox}
+
+\newtoggle{ifsolved}
+\newtoggle{needhelp}
+\newcounter{num}
+\setcounter{num}{1}
+
+\newcommand{\newnum}{\par\textbf{\textnumero\arabic{num}}\stepcounter{num}}
+\newcommand{\sol}{\vspace{3mm}\par\textbf{Решение: }}
+\newcommand{\ans}{\vspace{3mm}\par\textbf{Ответ: }}
+\newcommand{\hint}{\vspace{3mm}\par\textbf{Подсказка: }}
+\newcommand{\mode}[1]{
+\ifstrequal{#1}{0}{\togglefalse{ifsolved}\togglefalse{needhelp}}{\ifstrequal{#1}{1}{\togglefalse{ifsolved}\toggletrue{needhelp}}{\ifstrequal{#1}{2}{\toggletrue{ifsolved}\togglefalse{needhelp}}{\toggletrue{ifsolved}\toggletrue{needhelp}}}}} %if 0 - if 1 - if 2 - else
+%\newenvironment{problem}[8]{%#1, #2, #3
+%\parbox{\linewidth}{\vspace{4mm}\ifstrequal{#4}{(лёгкая)}{\newnum\textbf{.}}{\newnum\textbf{*.} } \\ #5}
+%\iftoggle{ifsolved}{\sol #6}{}
+%\iftoggle{ifsolved}{\ans #7}{}
+%\iftoggle{needhelp}{\hint #8}{}}
+
+\newenvironment{problem}[8]{%#1, #2, #3
+\parbox{\linewidth}{\vspace{5mm}\ifstrequal{#4}{(лёгкая)}{\newnum\textbf{.}}{\newnum\textbf{*.} } \\ #5}
+\iftoggle{ifsolved}{\sol #6}{}
+
+\iftoggle{ifsolved}{\parbox{\linewidth}{\ans #7}}{}
+\iftoggle{needhelp}{\parbox{\linewidth}{\hint #8}}{}}
+
+\newenvironment{mylist} %custom list
+{ \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \end{itemize}                  }
+
+\newenvironment{homeass}[1]{\vspace*{-1.5cm}
+\iftoggle{ifsolved}{
+    \section*{\center{Решение домашнего задания к #1.}}
+}{
+    \section*{\center{\textcolor{Sepia}{Домашнее задание к #1}}}
+} \vspace{7mm}\large}
+
+\parindent=0pt
+\pagestyle{empty}
+%$\!$[\arabic{class}.\arabic{num}]
+%\ifnumcomp{\value{counter}}{>}{1}{true}{false}
+%\definecolor{Gray}{gray}{0.9}
+%\definecolor{mypink}{RGB}{219, 48, 122}
+%\newcolumntype{g}{>{\columncolor{Gray}}p{2.8cm}}
+
+\begin{document}
+\large
+\mode{7}
+%0 for problems without hints
+%1 for problems + hints
+%2 for problems + solutions + answers
+%else: show all
+
+{\centering\section*{СПИСОК ЗАДАЧ}}
+
+{\centering\subsection*{\smallskip\\\textcolor{green}{\textbf{Полезные вещи, которые можно и нужно копипастить:}}}}
+
+\subsection*{\textcolor{Emerald}{\textbf{Полезные шпаргалки по LaTeXу:}}}
+
+\textbf{Пример вставки рисунка:}
+
+\begin{minipage}{\linewidth}
+    \begin{minipage}{0.54\linewidth}
+    см. рисунок справа\\
+    Текст к собственно пикче, примерно всегда это либо развёрнутое описание, либо большая часть решения задачи --- стремимся экономить пространство, если это можно сделать.
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.4\linewidth}
+    \begin{figure}[H] \includegraphics[width=\linewidth]{sol3} %тут поменять имя пикчи
+    \end{figure}
+    \end{minipage}
+\end{minipage}
+
+\textbf{Дефолтные математические знаки и символы:}\\
+$\geqslant$,
+$\leqslant$,
+$a^{b}$,
+$x_{i}$,
+$\sqrt{a}$,
+$\frac{a}{b}$,
+$\displaystyle \frac{a}{b}$,
+$\cdot$
+$\;\Rightarrow\;$,
+$\;\Leftrightarrow\;$,
+$1{,}2$.
+О промежутках:
+$a\!b$,
+$a\,b$,
+$a\:b$,
+$a\;b$,
+$a\quad b$.
+
+\textbf{Стандартные система и совокупность уравнений / неравенств:}\\
+$\left\{
+\begin{aligned}
+f(x) &= 0 \\
+g(x) &= 1
+\end{aligned}\right.$
+
+$\left[\begin{aligned}
+&\left\{\begin{aligned}
+f(x) &\geqslant a \\
+g(x) &= b
+\end{aligned}\right.\\
+&\left\{\begin{aligned}
+f(x) &< a \\
+g(x) &= -b
+\end{aligned}\right.
+\end{aligned}\right.$
+
+\subsection*{\textcolor{Emerald}{\textbf{Не математическое, но полезное:}}}
+% комментарий в любом месте документа, который нигде не будет видно. Можно использовать для написания заметок-вопросов по задачам
+\textbf{Пример таблицы:}
+
+\begin{tabular}{|c|c|c|}
+\hline
+    $a$ & $b$ & текст
+\\\hline
+    $c$ & $d$ & мораль
+\\\hline
+\end{tabular}\\
+
+\textbf{Отступы:} между\smallskip\\ строками\medskip\\ \textbf{Тире} --- это три дефиса.\\
+\textbf{Списки:}
+\begin{mylist}
+\item [$\bullet$] это был пункт а
+\item [2)] а это уже пункт номер 2 с изменённым заголовком
+\end{mylist}
+
+\subsection*{\textcolor{Emerald}{\textbf{Всё, неупомянутое выше (или если просто что-то не так):}}}
+\begin{mylist}
+\item [$\bullet$] Решение отдельных вопросов касательно ТеХа нужно искать в \href{https://www.mccme.ru/free-books/llang/newllang.pdf}{Львовском}.
+
+\item [$\bullet$] Найти произвольный символ, который нужен, можно в \href{http://detexify.kirelabs.org/classify.html}{Detexify}.
+
+\item [$\bullet$] Если возникли сомнения при решении, ответ практически ко всем задачам можно проверить с помощью \href{https://www.wolframalpha.com/}{WolframAlpha}.
+
+\item [$\bullet$] Если в задаче нужно создать картинку, то лучше пока отложить эту задачу. Все графики планируется централизованно нарисовать (или перерисовать) в геогебре.
+
+\item [\textcolor{brown}{\textbf{!!}}] Важно ставить \textcolor{red}{\textbf{$\spadesuit$}}
+(или просто red) в тело задачи в случае серьёзных вопросов к решению и какой-то вопиющей лажи.
+
+\item [\textcolor{brown}{\textbf{!!}}] Важно ставить \textcolor{olive}{\textbf{$\spadesuit$}}
+(или просто olive) в тело задачи в случае не самого удачного текста и кривых отступов.
+\end{mylist}
+
+\subsection*{\textcolor{Violet}{\textbf{Комментарии:}}}% а также невидимые комментарии - так можно оставлять заметки-вопросы прямо в задаче, чтобы потом было понятно, в чём вопрос.
+\begin{mylist}
+\item [$\skull$] Переставлять задачи местами --- очень плохая идея.
+
+\item [$\smiley$] При двойном клике по тексту pdf справа происходит автоматический переход к этому месту в латех-коде, а для обратного перехода можно нажать стрелку вправо (висит сверху между pdf и латех-кодом).
+
+\item [$\smiley$] Если есть размышления, дописывать red/olive к задаче или не дописывать, то лучше всё-таки дописать.
+
+\item [$\skull$] Самое плохое, что можно сделать --- написать в любое поле из трёх (НаписанноеРешение/ВерныйОтвет/Подсказка) только половину того, что надо, никак это не отметить, и потом пойти дальше.\\ Нужно в этот момент писать red/olive в случайном месте задачи, чтобы потом вычислить это с помощью Ctrl+F по всему документу (и это то, что потом будет делаться долго и тщательно)
+\end{mylist}
+
+\newpage
+\setcounter{num}{1408}
+
+\hypertarget{9.5}{{\centering\section*{\bigskip\\\textcolor{Blue}{\hyperlink{start2}{\textcolor{Blue}{9.5}} Степенные функции.}\vspace{-5mm}}}}
+
+\begin{problem}{Степень с рациональным показателем.}{9.5.4}{9I}{(лёгкая)}
+{Вычислить без калькулятора значение выражения $4^{\sqrt{6} - 9} \cdot 4^{6 - \sqrt{6}}$.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Степень с рациональным показателем.}{9.5.4}{9I}{(лёгкая)}
+{Вычислить без калькулятора значение выражения $\;\displaystyle \left(\frac{9^{\frac{3}{2}} \cdot 5^{-\frac{2}{3}}}{75^{-1}}\right)^{\frac{3}{4}}$}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Степень с рациональным показателем.}{9.5.4}{9D}{(лёгкая)}
+{Решить уравнение: $\;2\sqrt[3]{x + 1} - \sqrt[6]{x + 1} = 6$.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Преобразования иррациональных выражений.}{9.5.5}{9D}{(лёгкая)}
+{Упростить выражение: $\;\displaystyle \left(\frac{x^{\frac{1}{3}}}{x^{\frac{2}{3}} - x^{\frac{1}{3}} + 1} - \frac{3x^{\frac{1}{3}} - 1}{x + 1}\right) \cdot \frac{x + 1}{x^{\frac{2}{3}} - 1}$.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Свойства и графики степенной функции.}{9.5.6}{9I}{*}
+{Чему равно наибольшее значение выражения $\,\sqrt[4]{-3x^{2} + 18x - 11}$?}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\end{document}

@@ -1,0 +1,299 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage[a4paper, outer=1.5cm, inner=1.5cm, top=1cm, bottom=1cm]{geometry}
+\usepackage{graphicx}
+\usepackage{skull}
+\usepackage{wasysym}
+\usepackage{float}
+\graphicspath{{.images/}}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan}
+\usepackage[firstpage]{draftwatermark}
+\SetWatermarkText{
+    $\qquad\qquad\qquad\qquad\qquad$\parbox{7cm}{\begin{center}
+    \includegraphics[width = 0.08\textwidth]{lion-logo.png}\bigskip\\~\bigskip\\~\vspace{-24mm}\\~\end{center}}
+}
+\SetWatermarkAngle{0}
+\SetWatermarkScale{1.5}
+\usepackage{etoolbox}
+
+\newtoggle{ifsolved}
+\newtoggle{needhelp}
+\newcounter{num}
+\setcounter{num}{1}
+
+\newcommand{\newnum}{\par\textbf{\textnumero\arabic{num}}\stepcounter{num}}
+\newcommand{\sol}{\vspace{3mm}\par\textbf{Решение: }}
+\newcommand{\ans}{\vspace{3mm}\par\textbf{Ответ: }}
+\newcommand{\hint}{\vspace{3mm}\par\textbf{Подсказка: }}
+\newcommand{\mode}[1]{
+\ifstrequal{#1}{0}{\togglefalse{ifsolved}\togglefalse{needhelp}}{\ifstrequal{#1}{1}{\togglefalse{ifsolved}\toggletrue{needhelp}}{\ifstrequal{#1}{2}{\toggletrue{ifsolved}\togglefalse{needhelp}}{\toggletrue{ifsolved}\toggletrue{needhelp}}}}} %if 0 - if 1 - if 2 - else
+%\newenvironment{problem}[8]{%#1, #2, #3
+%\parbox{\linewidth}{\vspace{4mm}\ifstrequal{#4}{(лёгкая)}{\newnum\textbf{.}}{\newnum\textbf{*.} } \\ #5}
+%\iftoggle{ifsolved}{\sol #6}{}
+%\iftoggle{ifsolved}{\ans #7}{}
+%\iftoggle{needhelp}{\hint #8}{}}
+
+\newenvironment{problem}[8]{%#1, #2, #3
+\parbox{\linewidth}{\vspace{5mm}\ifstrequal{#4}{(лёгкая)}{\newnum\textbf{.}}{\newnum\textbf{*.} } \\ #5}
+\iftoggle{ifsolved}{\sol #6}{}
+
+\iftoggle{ifsolved}{\parbox{\linewidth}{\ans #7}}{}
+\iftoggle{needhelp}{\parbox{\linewidth}{\hint #8}}{}}
+
+\newenvironment{mylist} %custom list
+{ \begin{itemize}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}     }
+{ \end{itemize}                  }
+
+\newenvironment{homeass}[1]{\vspace*{-1.5cm}
+\iftoggle{ifsolved}{
+    \section*{\center{Решение домашнего задания к #1.}}
+}{
+    \section*{\center{\textcolor{Sepia}{Домашнее задание к #1}}}
+} \vspace{7mm}\large}
+
+\parindent=0pt
+\pagestyle{empty}
+%$\!$[\arabic{class}.\arabic{num}]
+%\ifnumcomp{\value{counter}}{>}{1}{true}{false}
+%\definecolor{Gray}{gray}{0.9}
+%\definecolor{mypink}{RGB}{219, 48, 122}
+%\newcolumntype{g}{>{\columncolor{Gray}}p{2.8cm}}
+
+\begin{document}
+\large
+\mode{7}
+%0 for problems without hints
+%1 for problems + hints
+%2 for problems + solutions + answers
+%else: show all
+
+{\centering\section*{СПИСОК ЗАДАЧ}}
+
+{\centering\subsection*{\smallskip\\\textcolor{green}{\textbf{Полезные вещи, которые можно и нужно копипастить:}}}}
+
+\subsection*{\textcolor{Emerald}{\textbf{Полезные шпаргалки по LaTeXу:}}}
+
+\textbf{Пример вставки рисунка:}
+
+\begin{minipage}{\linewidth}
+    \begin{minipage}{0.54\linewidth}
+    см. рисунок справа\\
+    Текст к собственно пикче, примерно всегда это либо развёрнутое описание, либо большая часть решения задачи --- стремимся экономить пространство, если это можно сделать.
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.4\linewidth}
+    \begin{figure}[H] \includegraphics[width=\linewidth]{sol3} %тут поменять имя пикчи
+    \end{figure}
+    \end{minipage}
+\end{minipage}
+
+\textbf{Дефолтные математические знаки и символы:}\\
+$\geqslant$,
+$\leqslant$,
+$a^{b}$,
+$x_{i}$,
+$\sqrt{a}$,
+$\frac{a}{b}$,
+$\displaystyle \frac{a}{b}$,
+$\cdot$
+$\;\Rightarrow\;$,
+$\;\Leftrightarrow\;$,
+$1{,}2$.
+О промежутках:
+$a\!b$,
+$a\,b$,
+$a\:b$,
+$a\;b$,
+$a\quad b$.
+
+\textbf{Стандартные система и совокупность уравнений / неравенств:}\\
+$\left\{
+\begin{aligned}
+f(x) &= 0 \\
+g(x) &= 1
+\end{aligned}\right.$
+
+$\left[\begin{aligned}
+&\left\{\begin{aligned}
+f(x) &\geqslant a \\
+g(x) &= b
+\end{aligned}\right.\\
+&\left\{\begin{aligned}
+f(x) &< a \\
+g(x) &= -b
+\end{aligned}\right.
+\end{aligned}\right.$
+
+\subsection*{\textcolor{Emerald}{\textbf{Не математическое, но полезное:}}}
+% комментарий в любом месте документа, который нигде не будет видно. Можно использовать для написания заметок-вопросов по задачам
+\textbf{Пример таблицы:}
+
+\begin{tabular}{|c|c|c|}
+\hline
+    $a$ & $b$ & текст
+\\\hline
+    $c$ & $d$ & мораль
+\\\hline
+\end{tabular}\\
+
+\textbf{Отступы:} между\smallskip\\ строками\medskip\\ \textbf{Тире} --- это три дефиса.\\
+\textbf{Списки:}
+\begin{mylist}
+\item [$\bullet$] это был пункт а
+\item [2)] а это уже пункт номер 2 с изменённым заголовком
+\end{mylist}
+
+\subsection*{\textcolor{Emerald}{\textbf{Всё, неупомянутое выше (или если просто что-то не так):}}}
+\begin{mylist}
+\item [$\bullet$] Решение отдельных вопросов касательно ТеХа нужно искать в \href{https://www.mccme.ru/free-books/llang/newllang.pdf}{Львовском}.
+
+\item [$\bullet$] Найти произвольный символ, который нужен, можно в \href{http://detexify.kirelabs.org/classify.html}{Detexify}.
+
+\item [$\bullet$] Если возникли сомнения при решении, ответ практически ко всем задачам можно проверить с помощью \href{https://www.wolframalpha.com/}{WolframAlpha}.
+
+\item [$\bullet$] Если в задаче нужно создать картинку, то лучше пока отложить эту задачу. Все графики планируется централизованно нарисовать (или перерисовать) в геогебре.
+
+\item [\textcolor{brown}{\textbf{!!}}] Важно ставить \textcolor{red}{\textbf{$\spadesuit$}}
+(или просто red) в тело задачи в случае серьёзных вопросов к решению и какой-то вопиющей лажи.
+
+\item [\textcolor{brown}{\textbf{!!}}] Важно ставить \textcolor{olive}{\textbf{$\spadesuit$}}
+(или просто olive) в тело задачи в случае не самого удачного текста и кривых отступов.
+\end{mylist}
+
+\subsection*{\textcolor{Violet}{\textbf{Комментарии:}}}% а также невидимые комментарии - так можно оставлять заметки-вопросы прямо в задаче, чтобы потом было понятно, в чём вопрос.
+\begin{mylist}
+\item [$\skull$] Переставлять задачи местами --- очень плохая идея.
+
+\item [$\smiley$] При двойном клике по тексту pdf справа происходит автоматический переход к этому месту в латех-коде, а для обратного перехода можно нажать стрелку вправо (висит сверху между pdf и латех-кодом).
+
+\item [$\smiley$] Если есть размышления, дописывать red/olive к задаче или не дописывать, то лучше всё-таки дописать.
+
+\item [$\skull$] Самое плохое, что можно сделать --- написать в любое поле из трёх (НаписанноеРешение/ВерныйОтвет/Подсказка) только половину того, что надо, никак это не отметить, и потом пойти дальше.\\ Нужно в этот момент писать red/olive в случайном месте задачи, чтобы потом вычислить это с помощью Ctrl+F по всему документу (и это то, что потом будет делаться долго и тщательно)
+\end{mylist}
+
+\newpage
+\setcounter{num}{819}
+
+\hypertarget{8.2}{{\centering\section*{\bigskip\\\textcolor{Blue}{\hyperlink{start2}{\textcolor{Blue}{8.2}} Примеры функций.}\vspace{-5mm}}}}
+
+\begin{problem}{График квадратного корня.}{8.2.2}{79I red в f(x + a) + b}{(лёгкая)}
+{Нарисовать график функции $y = 1 - 2\sqrt{x + 3}$.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{(лёгкая)}
+{Решить уравнение $\displaystyle \sqrt{9x - 8} = x$ графически.}
+{\\
+\begin{minipage}{\linewidth}
+    \begin{minipage}{0.54\linewidth}
+    см. рисунок справа\\
+    Текст к собственно пикче, примерно всегда это либо развёрнутое описание, либо большая часть решения задачи --- стремимся экономить пространство, если это можно сделать.
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.4\linewidth}
+    %\begin{figure}[H] \includegraphics[width=\linewidth]{790.png} %тут поменять имя пикчи
+    %\end{figure}
+    \end{minipage}
+\end{minipage}}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{*}
+{Решить неравенство $\displaystyle \sqrt{100 - 9x} > 8$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{*}
+{Решить неравенство $\displaystyle \sqrt{4x - 28} \leqslant 9$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{(лёгкая)}
+{Решить уравнение $\displaystyle \frac{4}{x} = x + 3$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{(лёгкая)}
+{Решить уравнение $\sqrt{x} = 2 - x$ графически.}
+{Изобразим и прямую $y = 2 - x$, и квадратный корень $y = \sqrt{x}$ на одном графике. Получившаяся картина изображена на графике ниже: \vspace{-3mm}\\\begin{minipage}{\linewidth}
+    \begin{minipage}{0.47\linewidth}
+    Видно, что точка пересечения графиков тут есть только одна --- это точка $A = (1; 1)$.\medskip\\
+    Довольно понятно, почему других нет: с увеличением $x$, $\sqrt{x}$ также увеличивается, а вот $2 - x$ будет уменьшаться. Поэтому после одного пересечения графики функций больше нигде не встретятся.\medskip\\
+    Поскольку для точки пересечения графиков верны одновременно и уравнение $y = \sqrt{x}$, и $y = 2 - x$, для этой точки верно, что $\sqrt{x} = 2 - x$.\\ Таким образом, $x = 1$ --- единственное решение этого уравнения.
+    
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.48\linewidth}
+        \begin{figure}[H]
+        \includegraphics[width=\linewidth]{sol80}
+        \end{figure}
+    \end{minipage}
+\end{minipage}}
+{Решением уравнения $\sqrt{x} = 2 - x$ является $x = 1$.}{Нарисуй графики функций $y = \sqrt{x}$ и $y = 2 - x$.}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{(лёгкая)}
+{Решить уравнение $x^{2} - 5x + 6 = 0$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I \textcolor{red}{\textbf{$\spadesuit$}} корни большие по модулю}{(лёгкая)}
+{Решить уравнение $x - \sqrt{21 - 4x} = 0$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{79I}{*}
+{Решить уравнение $x^{2} - 6|x| + 5 = 0$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{9D}{*}
+{Решить неравенство $\displaystyle \frac{4}{x} > x + 3$ графически.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{9D \textcolor{red}{\textbf{$\spadesuit$}} номер чисто на теорему Виета}{*}
+{Прямая пересекает график функции $y = x^{2}$ в точках с абсциссами $x_1$ и $x_2$, а ось абсцисс~--- в точке с абсциссой $x_3$. Доказать, что $\:\displaystyle\frac{1}{x_1} + \frac{1}{x_2} = \frac{1}{x_3}$.}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\begin{problem}{Графическое решение уравнений-1.}{8.2.4}{9D \textcolor{red}{\textbf{$\spadesuit$}} \textcolor{olive}{\textbf{$\spadesuit$}} номер чисто на теорему Виета}{*}
+{\vspace{-6mm}\\\begin{minipage}{\linewidth}
+    \begin{minipage}{0.5\linewidth}
+
+    Даны два приведённых квадратных трёхчлена. График одного из них пересекает ось $Ox$ в точках $A$ и $M$, а ось $Oy$~--- в точке $C$.\\ График другого пересекает ось $Ox$ в точках $B$ и $M$, а ось $Oy$~--- в точке $D$. ($O$~--- начало координат;\\ точки расположены как на рисунке.)\\ Доказать, что треугольники $AOC$ и $BOD$ подобны.
+
+    \end{minipage}
+    \hspace{0.05\linewidth}
+    \begin{minipage}{0.44\linewidth}
+        \begin{figure}[H]
+        \includegraphics[width=\linewidth]{9D-6}
+        \end{figure}
+    \end{minipage}
+\end{minipage}}
+{НаписанноеРешение}
+{ВерныйОтвет}{Подсказка}
+\end{problem}
+
+\end{document}

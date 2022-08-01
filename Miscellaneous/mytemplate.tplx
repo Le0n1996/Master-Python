@@ -1,0 +1,18 @@
+% Default to the notebook output style
+((* set cell_style = 'base.tplx' *))
+% Inherit from the specified cell style.
+((* extends cell_style *))
+
+((* block packages *))
+((( super() ))) % load all other packages
+% For cyrillic symbols
+\usepackage{pscyr}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+((* endblock packages *))
+
+((* block docclass *))
+\documentclass{article}
+((* endblock docclass *))
